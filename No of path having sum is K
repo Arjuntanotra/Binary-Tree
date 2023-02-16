@@ -1,0 +1,31 @@
+class Solution{
+  public: 
+  void solve(Node *root , int&count , vector<int>store , int k ){
+      if(root == NULL){
+          return ;
+      }
+      
+      store.push_back(root->data);
+      
+      solve(root->left , count , store,k);
+      solve(root->right, count , store,k);
+      
+      int size = store.size();
+      int sum =0 ;
+      for(int i =size-1 ; i>=0 ; i--){
+          sum += store[i];
+          if(sum == k){
+              count++;
+          }
+      }
+      store.pop_back();
+  }
+    int sumK(Node *root,int k)
+    {
+        // code here 
+        int count =0 ;
+        vector<int>store;
+        solve(root , count , store, k);
+        return count;
+    }
+};
