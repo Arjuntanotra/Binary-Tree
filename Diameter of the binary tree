@@ -1,0 +1,33 @@
+
+class Solution {
+  public:
+    // Function to return the diameter of a Binary Tree.
+ pair<int, int> diameter_fast(Node* root) {
+        // Your code here
+        if(root == NULL){
+            pair<int, int>p = make_pair(0,0);
+            return p;
+        }
+         
+         pair<int, int>left  = diameter_fast(root->left);
+         pair<int, int>right = diameter_fast(root->right);
+         
+         int ans1 = left.first;
+         int ans2 = right.first;
+         int ans3  = left.second + right.second+1;
+
+        pair<int , int>ans;
+       ans.first = max(ans1 ,  max(ans2 , ans3));
+       ans.second = max(left.second , right.second) +1;
+       
+        
+       return ans;
+    }
+    
+    int diameter(Node *root){
+        pair<int,int>ans = diameter_fast(root);
+        return ans.first;
+    }
+    
+
+};
