@@ -1,0 +1,36 @@
+
+class Solution {
+  public:
+    vector <int> bottomView(Node *root) {
+        // Your Code Here
+        map<int , int >store;
+        queue<pair<Node* , int> >q;
+         vector<int> ans;
+        if(root == NULL){
+            return ans;
+        }
+        
+        q.push(make_pair(root , 0));
+        
+        while(!q.empty()){
+            pair<Node* , int> temp = q.front();
+             q.pop();
+            Node *one = temp.first;
+            int horizntl = temp.second;
+            
+            store[horizntl] = one->data;
+            
+            if(one->left)
+              q.push(make_pair(one->left, horizntl-1));
+            if(one->right)
+              q.push(make_pair(one->right, horizntl+1));
+        }
+        
+        
+        for(auto i : store){
+            ans.push_back(i.second);
+        }
+        
+        return ans;
+    }
+};
