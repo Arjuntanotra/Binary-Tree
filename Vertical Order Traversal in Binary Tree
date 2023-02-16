@@ -1,0 +1,42 @@
+  vector<int> verticalOrder(Node *root)
+    {
+        //Your code here
+        // int int == horizntal and level in the tree;
+        map<int, map<int , vector<int > > > nodes;
+        queue< pair< Node* , pair< int , int > > >q;
+        vector<int>ans;
+        if(root == NULL){
+            return ans;
+        }
+        
+        q.push(make_pair(root , make_pair(0,0)));
+        
+        while(!q.empty()){
+            pair<Node* , pair<int, int> > my_pair = q.front();
+            q.pop();
+            
+            Node *one = my_pair.first;
+            int horizntl_dst = my_pair.second.first;
+            int level = my_pair.second.second;
+            
+            nodes[horizntl_dst][level].push_back(one->data);
+            
+            if(one->left)
+                q.push(make_pair(one->left,  make_pair( horizntl_dst-1 , level+1)));
+                
+            if(one->right)
+                q.push(make_pair(one->right,  make_pair(horizntl_dst+1 , level+1)));
+            
+        }
+        
+        
+        for(auto i:nodes){
+            for(auto j: i.second){
+                for(auto k: j.second){
+                    ans.push_back(k);
+                }
+            }
+        }
+        return ans;
+    }
+};
